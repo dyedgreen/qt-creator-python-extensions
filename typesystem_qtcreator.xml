@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+<!--
+/****************************************************************************
+**
+** Copyright (C) 2018 The Qt Company Ltd.
+** Contact: https://www.qt.io/licensing/
+**
+** This file is part of the Python Extensions Plugin for QtCreator.
+**
+** $QT_BEGIN_LICENSE:LGPL$
+** Commercial License Usage
+** Licensees holding valid commercial Qt licenses may use this file in
+** accordance with the commercial license agreement provided with the
+** Software or, alternatively, in accordance with the terms contained in
+** a written agreement between you and The Qt Company. For licensing terms
+** and conditions see https://www.qt.io/terms-conditions. For further
+** information use the contact form at https://www.qt.io/contact-us.
+**
+** GNU Lesser General Public License Usage
+** Alternatively, this file may be used under the terms of the GNU Lesser
+** General Public License version 3 as published by the Free Software
+** Foundation and appearing in the file LICENSE.LGPL3 included in the
+** packaging of this file. Please review the following information to
+** ensure the GNU Lesser General Public License version 3 requirements
+** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
+**
+** GNU General Public License Usage
+** Alternatively, this file may be used under the terms of the GNU
+** General Public License version 2.0 or (at your option) the GNU General
+** Public license version 3 or any later version approved by the KDE Free
+** Qt Foundation. The licenses are as published by the Free Software
+** Foundation and appearing in the file LICENSE.GPL2 and LICENSE.GPL3
+** included in the packaging of this file. Please review the following
+** information to ensure the GNU General Public License requirements will
+** be met: https://www.gnu.org/licenses/gpl-2.0.html and
+** https://www.gnu.org/licenses/gpl-3.0.html.
+**
+** $QT_END_LICENSE$
+**
+****************************************************************************/
+-->
+
+<!-- Typesystem for Qt Creator Python host plugin -->
+<typesystem package="QtCreatorPython">
+
+    <!-- Load PySide QtWidgets typesystem (is this correct? yup) -->
+    <load-typesystem name="typesystem_widgets.xml" generate="no"/>
+
+    <namespace-type name="PythonExtensions">
+        <namespace-type name="Internal">
+            <object-type name="PythonExtensionsPlugin"/>
+        </namespace-type>
+    </namespace-type>
+
+    <namespace-type name="Core">
+        <object-type name="ActionContainer">
+            <enum-type name="OnAllDisabledBehavior"/>
+            <modify-function signature="addMenu(Core::ActionContainer *, Core::ActionContainer *, Core::Id)"/>
+            <modify-function signature="addMenu(Core::ActionContainer *, Core::Id)"/>
+            <modify-function signature="addSeparator(const Core::Context &amp;, Core::Id, QAction **)" remove="all"/>
+            <modify-function signature="addSeparator(Core::Id)" remove="all"/>
+        </object-type>
+        <object-type name="ActionManager"/>
+        <!-- <object-type name="BaseFileFilter"/> -->
+        <!-- <object-type name="BaseFileWizard"/> -->
+        <!-- <object-type name="BaseFileWizardFactory"/> -->
+        <!-- <object-type name="BaseTextDocument"/> -->
+        <!-- <object-type name="BaseTextFind"/> -->
+        <!-- Causes Seg-Fault (still?) -->
+        <object-type name="Command">
+            <enum-type name="CommandAttribute"/>
+        </object-type>
+        <!-- <object-type name="CommandButton"/> -->
+        <!-- <object-type name="CommandLocator"/> -->
+        <!-- <object-type name="CommandMappings"/> -->
+        <value-type name="Context"/>
+        <!-- <object-type name="DesignMode"/> -->
+        <!-- <object-type name="DiffService"/> -->
+        <object-type name="DocumentManager">
+            <enum-type name="ResolveMode"/>
+        </object-type>
+        <object-type name="DocumentModel"/>
+        <object-type name="EditorManager">
+            <!-- <enum-type name="OpenEditorFlags"/> -->
+        </object-type>
+        <!-- <object-type name="EditorManagerPlaceHolder"/> -->
+        <!-- <object-type name="EditorToolBar"/> -->
+        <!-- <object-type name="ExternalToolManager"/> -->
+        <object-type name="FileUtils"/>
+        <!-- <object-type name="Find"/> -->
+        <!-- <object-type name="FindToolBarPlaceHolder"/> -->
+        <!-- <object-type name="FutureProgress"/> -->
+        <!-- <object-type name="GenerateFile"/> -->
+        <!-- <object-type name="HelpManager"/> -->
+        <!-- <object-type name="Highlight"/> -->
+        <!-- <object-type name="HighlightScrollBarController"/> -->
+        <object-type name="IContext"/>
+        <object-type name="ICore">
+            <enum-type name="ContextPriority"/>
+            <enum-type name="OpenFilesFlags"/>
+        </object-type>
+        <object-type name="IDocument">
+            <enum-type name="OpenResult"/>
+            <enum-type name="ReloadSetting"/>
+            <enum-type name="ChangeTrigger"/>
+            <enum-type name="ChangeType"/>
+            <enum-type name="ReloadBehavior"/>
+            <enum-type name="ReloadFlag"/>
+        </object-type>
+        <!-- <object-type name="IDocumentFactory"/> -->
+        <object-type name="IEditor"/>
+        <!-- <object-type name="IEditorFactory"/> -->
+        <!-- <object-type name="IExternalEditor"/> -->
+        <!-- <object-type name="IFeatureProvider"/> -->
+        <!-- <object-type name="IFindFilter"/> -->
+        <!-- <object-type name="IFindSupport"/> -->
+        <!-- <object-type name="ILocatorFilter"/> -->
+        <!-- <object-type name="IMode"/> -->
+        <!-- <object-type name="INavigationWidgetFactory"/> -->
+        <!-- <object-type name="IOptionsPage"/> -->
+        <!-- <object-type name="IOptionsPageProvider"/> -->
+        <!-- <object-type name="IOutputPane"/> -->
+        <!-- <object-type name="IVersionControl"/> -->
+        <!-- <object-type name="IWelcomePage"/> -->
+        <!-- <object-type name="IWizardFactory"/> -->
+        <value-type name="Id">
+            <modify-function signature="operator&gt;&gt;(QDataStream&amp;, Core::Id&amp;)" remove="all"/>
+            <modify-function signature="operator&lt;&lt;(QDataStream&amp;, Core::Id)" remove="all"/>
+        </value-type>
+        <!-- <object-type name="InfoBar"/> -->
+        <!-- <object-type name="InfoBarDisplay"/> -->
+        <!-- <object-type name="InfoBarEntry"/> -->
+        <!-- <object-type name="ItemViewFind"/> -->
+        <!-- <object-type name="JsExpander"/> -->
+        <!-- <object-type name="LocatorFilterEntry"/> -->
+        <!-- <object-type name="LocatorManager"/> -->
+        <!-- <object-type name="ModeManager"/> -->
+        <!-- <object-type name="NavigationView"/> -->
+        <!-- <object-type name="NavigationWidget"/> -->
+        <!-- <object-type name="NavigationWidgetPlaceHolder"/> -->
+        <!-- <object-type name="NonResizingSplitter"/> -->
+        <!-- <object-type name="OpenDocumentsTreeView"/> -->
+        <!-- <object-type name="OutputPanePlaceHolder"/> -->
+        <!-- <object-type name="OutputWindow"/> -->
+        <!-- <object-type name="PatchTool"/> -->
+        <!-- <object-type name="ProgressManager"/> -->
+        <!-- <object-type name="ProgressTimer"/> -->
+        <!-- <object-type name="PromptOverwriteDialog"/> -->
+        <!-- <object-type name="ReadOnlyFilesDialog"/> -->
+        <!-- <object-type name="RightPanePlaceHolder"/> -->
+        <!-- <object-type name="RightPaneWidget"/> -->
+        <!-- <object-type name="SearchResult"/> -->
+        <!-- <object-type name="SearchResultItem"/> -->
+        <!-- <object-type name="SearchResultWindow"/> -->
+        <!-- <object-type name="SettingsDatabase"/> -->
+        <!-- <object-type name="ShellCommand"/> -->
+        <!-- <object-type name="SideBar"/> -->
+        <!-- <object-type name="SideBarItem"/> -->
+        <!-- <object-type name="StatusBarManager"/> -->
+        <!-- <object-type name="VariableChoser"/> -->
+        <!-- <object-type name="VcsManager"/> -->
+        <!-- <object-type name="WelcomePageButton"/> -->
+        <!-- <object-type name="WelcomePageFrame"/> -->
+        <!-- <object-type name="WizardDialogParameters"/> -->
+
+        <enum-type name="FindFlag"/>
+        <enum-type name="MakeWritableResult"/>
+        <enum-type name="Side"/>
+
+        <!-- <function signature="highlightAll(const QString &amp;, FindFlags)"/> -->
+        <!-- <function signature="qHash(Id)"/> -->
+
+        <namespace-type name="Constants"/>
+    </namespace-type>
+
+    <namespace-type name="Utils">
+        <object-type name="MacroExpander">
+            <inject-code class="native" position="beginning" file="glue/macroexpander_glue.cpp"/>
+
+            <!-- This requires to specifically disable threads, so that the python state is not empty when executing the expansion -->
+            <!-- However, since Shiboken does not support disabling threads directly, we need to rewrite the call to C++ -->
+            <modify-function signature="expand(const QString) const" allow-thread="no">
+                <inject-code class="target" position="beginning">
+                    // Same as generated, no PyEval_SaveThread
+                    %RETURN_TYPE %0 = %CPPSELF.%FUNCTION_NAME(%1);
+                    %PYARG_0 = %CONVERTTOPYTHON[%RETURN_TYPE](%0);
+                </inject-code>
+            </modify-function>
+            <modify-function signature="expand(const QByteArray) const" allow-thread="no">
+                <inject-code class="target" position="beginning">
+                    // Same as generated, no PyEval_SaveThread
+                    %RETURN_TYPE %0 = %CPPSELF.%FUNCTION_NAME(%1);
+                    %PYARG_0 = %CONVERTTOPYTHON[%RETURN_TYPE](%0);
+                </inject-code>
+            </modify-function>
+            <modify-function signature="expandProcessArgs(const QString) const" allow-thread="no">
+                <inject-code class="target" position="beginning">
+                    // Same as generated, no PyEval_SaveThread
+                    %RETURN_TYPE %0 = %CPPSELF.%FUNCTION_NAME(%1);
+                    %PYARG_0 = %CONVERTTOPYTHON[%RETURN_TYPE](%0);
+                </inject-code>
+            </modify-function>
+            <modify-function signature="value(const QByteArray, bool *found) const" allow-thread="no">
+                <inject-code class="target" position="beginning">
+                    // Same as generated, no PyEval_SaveThread
+                    %RETURN_TYPE %0 = %CPPSELF.%FUNCTION_NAME(%1);
+                    %PYARG_0 = %CONVERTTOPYTHON[%RETURN_TYPE](%0);
+                </inject-code>
+            </modify-function>
+
+            <!-- Not Pythonic, just call .value(b"Macro").decode("utf-8")  -->
+            <modify-function signature="resolveMacro(const QString, QString) const" remove="all"/>
+
+            <add-function signature="registerVariable(const QByteArray&amp;,const QString&amp;,PyObject*)">
+                <inject-code>
+                    registerPythonVariable(%1, %2, %3);
+                </inject-code>
+            </add-function>
+            <add-function signature="registerPrefix(const QByteArray&amp;,const QString&amp;,PyObject*)">
+                <inject-code>
+                    registerPythonPrefixVariable(%1, %2, %3);
+                </inject-code>
+            </add-function>
+        </object-type>
+        <enum-type name="OsType"/>
+    </namespace-type>
+
+    <namespace-type name="ExtensionSystem">
+        <object-type name="IPlugin"/>
+    </namespace-type>
+
+</typesystem>

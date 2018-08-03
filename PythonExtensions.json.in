@@ -1,0 +1,11 @@
+{
+    \"Name\" : \"PythonExtensions\",
+    \"Version\" : \"0.0.1\",
+    \"CompatVersion\" : \"0.0.1\",
+    \"Vendor\" : \"The Qt Company Ltd\",
+    \"Copyright\" : \"(C) 2018 The Qt Company Ltd\",
+    \"License\" : \"\",
+    \"Description\" : \"This plugin manages and runs Python extensions.\",
+    \"Url\" : \"https://www.qt.io\",
+    $$dependencyList
+}
