@@ -1,0 +1,5 @@
+# A simple requirements.txt, more complex things
+# are not required, as pip is expected to be maintained
+# and tested.
+
+numpy
