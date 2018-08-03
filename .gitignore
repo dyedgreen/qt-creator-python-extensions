@@ -1,0 +1,16 @@
+# Ignore build output
+.moc
+.obj
+QtCreatorPython
+PythonExtension
+.qmake.stash
+Makefile
+*.log
+plugins/pythonextensions/PythonExtensions.json
+
+# Ignore optional build directories
+optional/build_*
+
+# Ignore packaged examples and tests
+examples/*.zip
+tests/*.zip
