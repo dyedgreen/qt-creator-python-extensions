@@ -1,0 +1,5 @@
+# This illustrates that requirement.txt files
+# can be used instead of a setup.py, for simply
+# installing missing packages
+
+requests
