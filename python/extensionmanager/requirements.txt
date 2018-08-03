@@ -1,0 +1,2 @@
+# Needed packages
+Send2Trash
