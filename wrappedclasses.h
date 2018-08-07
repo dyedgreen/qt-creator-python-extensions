@@ -42,6 +42,7 @@
 #include <coreplugin/fileutils.h>
 
 #include <utils/macroexpander.h>
+#include <utils/fileutils.h>
 
 #include <extensionsystem/iplugin.h>
 

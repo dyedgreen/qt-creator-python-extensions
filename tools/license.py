@@ -72,7 +72,7 @@ py = """########################################################################
 import os, re
 
 
-def addLicense(file):
+def add_license(file):
     if "license.py" in file:
         print("Skipped {}".format(file))
         return
@@ -106,4 +106,4 @@ def addLicense(file):
 
 for path in os.walk("."):
     for filename in path[2]:
-        addLicense(path[0] + "/" + filename)
+        add_license(path[0] + "/" + filename)

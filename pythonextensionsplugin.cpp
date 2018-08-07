@@ -37,6 +37,7 @@
 #include <coreplugin/editormanager/editormanager.h>
 
 #include <extensionsystem/pluginmanager.h>
+#include <extensionsystem/pluginspec.h>
 
 #include <QDir>
 #include <QIODevice>
@@ -45,6 +46,7 @@
 #include <QTextStream>
 #include <QString>
 #include <QStringList>
+#include <QLibrary>
 
 
 namespace PythonExtensions {
@@ -89,6 +91,8 @@ void PythonExtensionsPlugin::extensionsInitialized()
 
 bool PythonExtensionsPlugin::delayedInitialize()
 {
+    // Initialize optional bindings
+    initializeOptionalBindings();
     // Pip install any requirements known for the script
     installRequirements();
     // Run the setup for each extension that requires it
@@ -159,6 +163,31 @@ void PythonExtensionsPlugin::initializePythonBindings()
     }
     // Bind the plugin instance
     PyUtil::bindObject("PythonExtension", "PluginInstance", PyUtil::PythonExtensionsPluginType, this);
+}
+
+void PythonExtensionsPlugin::initializeOptionalBindings()
+{
+    // Try to load optional bindings for all loaded plugins
+    // If a plugin has optional bindings, they occur in the form of
+    // a shared object which has the name libPythonBinding{PluginName}
+    // and exposes a symbol called `bind' which is a void function taking
+    // no arguments. This function is responsible for binding the
+    // object using the exposed PyUtil api and for reporting any errors
+    // etc. to the stderr / stdout.
+    // Examples of projects for such libraries exist within this repository.
+    for (int i = 0; i < ExtensionSystem::PluginManager::loadQueue().size(); i++) {
+        // Check each plugin directory for the library (first found is used)
+        QString name = ExtensionSystem::PluginManager::loadQueue()[i]->name();
+        for (const QString &path : ExtensionSystem::PluginManager::pluginPaths()) {
+            QLibrary bindingLib(path + Constants::PY_BINDING_LIB + name);
+            QFunctionPointer bind = bindingLib.resolve("bind");
+            if (bind) {
+                qDebug() << "Initializing optional bindings for plugin" << name;
+                bind();
+                break;
+            }
+        }
+    }
 }
 
 void PythonExtensionsPlugin::installRequirements()

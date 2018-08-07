@@ -56,6 +56,7 @@ public:
 private:
     QStringList m_loadedExtensions;
     void initializePythonBindings();
+    void initializeOptionalBindings();
     void installRequirements();
     void setupPythonExtensions();
     void initializePythonExtensions();

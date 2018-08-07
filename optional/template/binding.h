@@ -25,13 +25,6 @@
 
 #pragma once
 
-namespace PythonExtensions {
-namespace Constants {
+#include <QtGlobal>
 
-const char EXTENSIONS_DIR[] = "/python";
-const char PY_PACKAGES_DIR[] = "/site-packages";
-
-const char PY_BINDING_LIB[] = "/libPythonBinding";
-
-} // namespace PythonExtensions
-} // namespace Constants
+extern "C" Q_DECL_EXPORT void bind();

@@ -38,28 +38,26 @@
 ##
 #############################################################################
 
-# This one fixes things for the sanity bot
+# This example demonstrates how to work with the current
+# project. It also includes a dependency on a plugin
+# that can be disabled.
 
-import os
+import sys, view
 
+# When importing optional bindings, we can warn the user in case things go south
+try:
+    from PythonExtension.QtCreator import ProjectExplorer
+except ImportError:
+    view.error("The extension \"projects\" could not be loaded, since it depends on a disabled plugin.")
+    raise Exception("Dependencies missing")
 
-files_nl = ["cpp", "h", "py", "xml", "md", "pro", "pri", "txt", "gitignore"]
-
-def fix_nl(file):
-    f = open(file, "r")
-    body = f.read(-1)
-    f.close()
-    if len(body) > 0 and body[-1] != "\n":
-        body += "\n"
-        f = open(file, "w")
-        f.write(body)
-        f.close()
-        print("Fixed {}".format(file))
+# Now we can assume, that ProjectExplorer was imported
+def showProjectPath():
+    current_project = ProjectExplorer.ProjectTree.instance().currentProject()
+    if current_project:
+        view.show(current_project.projectDirectory().toString())
     else:
-        print("Skipped {}".format(file))
+        view.error("Please open a project")
 
-for path in os.walk("."):
-    for filename in path[2]:
-        file_type = filename.split(".")[-1]
-        if file_type in files_nl:
-            fix_nl(path[0] + "/" + filename)
+helpMenu = QtCreator.Core.ActionManager.actionContainer("QtCreator.Menu.Window")
+helpMenu.menu().addAction("Show Project Directory", showProjectPath)

@@ -23,15 +23,15 @@
 **
 ****************************************************************************/
 
-#pragma once
+#ifndef WRAPPEDCLASSES_H
+#define WRAPPEDCLASSES_H
 
-namespace PythonExtensions {
-namespace Constants {
+#include <QAbstractSocket>
 
-const char EXTENSIONS_DIR[] = "/python";
-const char PY_PACKAGES_DIR[] = "/site-packages";
+#include <projectexplorer/buildconfiguration.h>
+#include <projectexplorer/projectconfiguration.h>
+#include <projectexplorer/runconfiguration.h>
+#include <projectexplorer/project.h>
+#include <projectexplorer/projecttree.h>
 
-const char PY_BINDING_LIB[] = "/libPythonBinding";
-
-} // namespace PythonExtensions
-} // namespace Constants
+#endif // header end
