@@ -26,6 +26,7 @@
 #ifndef PYUTIL_H
 #define PYUTIL_H
 
+#include "pythonextensions_global.h"
 #include <string>
 
 class QObject;
@@ -48,19 +49,21 @@ enum State
 
 State init();
 
-bool createModule(const std::string &moduleName);
+PYTHONEXTENSIONSSHARED_EXPORT bool createModule(const std::string &moduleName);
 
 bool bindObject(const QString &moduleName, const QString &name, int index, void *o);
 
 bool bindShibokenModuleObject(const QString &moduleName, const QString &name);
 
-bool runScript(const std::string &script);
+PYTHONEXTENSIONSSHARED_EXPORT bool bindPyObject(const QString &moduleName, const QString &name, void *obj);
 
-bool runScriptWithPath(const std::string &script, const std::string &path);
+PYTHONEXTENSIONSSHARED_EXPORT bool runScript(const std::string &script);
 
-bool addToSysPath(const std::string &path);
+PYTHONEXTENSIONSSHARED_EXPORT bool runScriptWithPath(const std::string &script, const std::string &path);
 
-bool pipInstallRequirements(const std::string &requirements, const std::string &target);
+PYTHONEXTENSIONSSHARED_EXPORT bool addToSysPath(const std::string &path);
+
+PYTHONEXTENSIONSSHARED_EXPORT bool pipInstallRequirements(const std::string &requirements, const std::string &target);
 
 } // namespace PyUtil
 
