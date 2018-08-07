@@ -1,7 +1,7 @@
 # NOTE: This is not yet properly tested on general systems
 #       and will (if at all) probably only work on a linux environment
 
-
+PYTHON = python
 DEFINES += PYTHONEXTENSIONS_LIBRARY
 
 # PythonExtensions files
@@ -105,6 +105,7 @@ WRAPPED_CLASSES = \
   bindingheaders/core_fileutils.h \
   bindingheaders/utils.h \
   bindingheaders/utils_macroexpander.h \
+  bindingheaders/utils_filename.h \
   bindingheaders/extensionsystem.h \
   bindingheaders/extensionsystem_iplugin.h
 # Sentinel line

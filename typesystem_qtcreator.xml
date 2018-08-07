@@ -222,6 +222,8 @@
                 </inject-code>
             </add-function>
         </object-type>
+        <value-type name="FileName"/>
+        <modify-function signature="operator&lt;&lt;(QTextStream&amp;,Utils::FileName)" remove="all"/>
         <enum-type name="OsType"/>
     </namespace-type>
 

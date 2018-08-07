@@ -23,15 +23,47 @@
 **
 ****************************************************************************/
 
-#pragma once
+#include "binding.h"
 
-namespace PythonExtensions {
-namespace Constants {
+#include <QtCore/QDebug>
+#include <QtCore/QString>
 
-const char EXTENSIONS_DIR[] = "/python";
-const char PY_PACKAGES_DIR[] = "/site-packages";
+#undef signals
+#undef slots
 
-const char PY_BINDING_LIB[] = "/libPythonBinding";
+#include <sbkpython.h>
+#include <sbkconverter.h>
+#include <sbkmodule.h>
 
-} // namespace PythonExtensions
-} // namespace Constants
+#if PY_MAJOR_VERSION >= 3
+extern "C" PyObject *PyInit_QtCreatorBindingProjectExplorer();
+#else
+extern "C" void initQtCreatorBindingProjectExplorer();
+#endif
+
+extern PyObject *SbkQtCreatorBindingProjectExplorerModuleObject;
+
+namespace PyUtil {
+    extern bool bindSubPyObject(const QString &moduleName, const QString &name, void *obj);
+}
+
+void bind()
+{
+    // Init module
+    #if PY_MAJOR_VERSION >= 3
+    const bool pythonInitialized = PyInit_QtCreatorBindingProjectExplorer() != nullptr;
+    #else
+    const bool pythonInitialized = true;
+    initQtCreatorBindingProjectExplorer();
+    #endif
+    // Bind module into interpreter
+    bool pythonError = PyErr_Occurred() != nullptr;
+    if (pythonInitialized && !pythonError) {
+        PyUtil::bindSubPyObject("PythonExtension.QtCreator", "ProjectExplorer", (void *)SbkQtCreatorBindingProjectExplorerModuleObject);
+    } else {
+        if (pythonError)
+            PyErr_Print();
+        qDebug() << "There was a problem initializing the ProjectExplorer bindings.";
+
+    }
+}

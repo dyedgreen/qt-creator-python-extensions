@@ -23,7 +23,8 @@
 **
 ****************************************************************************/
 
-void registerPythonVariable(const QByteArray &variable, const QString &description, PyObject *func) {
+void registerPythonVariable(const QByteArray &variable, const QString &description, PyObject *func)
+{
     if (!PyCallable_Check(func)) {
         PyErr_BadArgument();
         return;
@@ -43,7 +44,8 @@ void registerPythonVariable(const QByteArray &variable, const QString &descripti
     );
 }
 
-void registerPythonPrefixVariable(const QByteArray &variable, const QString &description, PyObject *func) {
+void registerPythonPrefixVariable(const QByteArray &variable, const QString &description, PyObject *func)
+{
     if (!PyCallable_Check(func)) {
         PyErr_BadArgument();
         return;

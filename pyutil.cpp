@@ -43,6 +43,17 @@
 #include <sbkconverter.h>
 #include <sbkmodule.h>
 
+// Python has no concept of private variables and there
+// is no way to declare a namespace or scope that will be
+// inaccessible from the user script.
+// To avoid naming collisions with the setup and tear down
+// scripts that attempt to separate different extensions on
+// the level of user code (or at least make them appear separated),
+// this macro mangles the names of variables used.
+// Use as:
+// "... some Python code ..." privatName("my_var_name") "... more code ..."
+#define privateName(name) "qt_creator_" name "_symbol_mchawrioklpilnjajqkfl"
+
 // Setup and utility functions for QtCreatorPython bindings
 // from typesystem.xml
 
@@ -97,6 +108,7 @@ State init()
     Py_Initialize();
     qAddPostRoutine(cleanup);
     state = PythonInitialized;
+
     #if PY_MAJOR_VERSION >= 3
     const bool pythonInitialized = PyInit_QtCreatorPython() != nullptr;
     #else
@@ -110,6 +122,18 @@ State init()
         if (pyErrorOccurred)
             PyErr_Print();
         qWarning("Failed to initialize the QtCreator module.");
+    }
+
+    // The Python interpreter eats SIGINT, which is not what we want.
+    // This stops it from happening.
+    // See https://mail.python.org/pipermail/cplusplus-sig/2012-December/016858.html
+    if (PyRun_SimpleString(std::string(
+        "import signal as " privateName("signal") "\n"
+        "" privateName("signal") ".signal(" privateName("signal") ".SIGINT, " privateName("signal") ".SIG_DFL)"
+    ).c_str()) == -1) {
+        if (PyErr_Occurred())
+            PyErr_Print();
+        qWarning("Failed to prevent SIGINT capture.");
     }
 
     return state;
@@ -146,26 +170,15 @@ bool bindObject(const QString &moduleName, const QString &name, int index, void 
     }
     Py_INCREF(po);
 
-    PyObject *module = PyImport_AddModule(moduleName.toLocal8Bit().constData());
-    if (!module) {
-        Py_DECREF(po);
-        if (PyErr_Occurred())
-            PyErr_Print();
-        qWarning() << __FUNCTION__ << "Failed to locate module" << moduleName;
-        return false;
-    }
-
-    if (PyModule_AddObject(module, name.toLocal8Bit().constData(), po) < 0) {
-        if (PyErr_Occurred())
-            PyErr_Print();
-        qWarning() << __FUNCTION__ << "Failed to add object" << name << "to" << moduleName;
-        return false;
-    }
-
-    return true;
+    return bindPyObject(moduleName, name, po);
 }
 
 bool bindShibokenModuleObject(const QString &moduleName, const QString &name)
+{
+    return bindPyObject(moduleName, name, SbkQtCreatorPythonModuleObject);
+}
+
+bool bindPyObject(const QString &moduleName, const QString &name, void *obj)
 {
     if (init() != QtCreatorModuleLoaded)
         return false;
@@ -178,7 +191,7 @@ bool bindShibokenModuleObject(const QString &moduleName, const QString &name)
         return false;
     }
 
-    if (PyModule_AddObject(module, name.toLocal8Bit().constData(), SbkQtCreatorPythonModuleObject) < 0) {
+    if (PyModule_AddObject(module, name.toLocal8Bit().constData(), (PyObject *)obj) < 0) {
         if (PyErr_Occurred())
             PyErr_Print();
         qWarning() << __FUNCTION__ << "Failed to add object" << name << "to" << moduleName;
@@ -186,6 +199,25 @@ bool bindShibokenModuleObject(const QString &moduleName, const QString &name)
     }
 
     return true;
+}
+
+bool bindSubPyObject(const QString &moduleName, const QString &name, void *obj)
+{
+    PyObject *moduleDict = PyModule_GetDict((PyObject *)obj);
+    if (!moduleDict) {
+        if (PyErr_Occurred())
+            PyErr_Print();
+        qWarning("Could not obtain module dict");
+        return false;
+    }
+    PyObject *moduleItem = PyDict_GetItemString(moduleDict, name.toLocal8Bit().constData());
+    if (!moduleDict) {
+        if (PyErr_Occurred())
+            PyErr_Print();
+        qWarning() << "Could not obtain module item" << name;
+        return false;
+    }
+    return bindPyObject(moduleName, name, (void *)moduleItem);
 }
 
 bool runScript(const std::string &script)
@@ -202,32 +234,20 @@ bool runScript(const std::string &script)
     return true;
 }
 
-std::string privateName(const std::string &name)
-{
-    // Python has no concept of private variables and there
-    // is no way to declare a namespace or scope that will be
-    // inaccessible from the user script.
-    // To avoid naming collisions with the setup and tear down
-    // scripts that attempt to separate different extensions on
-    // the level of user code (or at least make them appear separated),
-    // this function mangles the names of variables used.
-    return "qt_creator_" + name + "_symbol_mchawrioklpilnjajqkfl";
-}
-
 bool runScriptWithPath(const std::string &script, const std::string &path)
 {
     // I couldn't find a direct c api, but this should cause no variable name
     // collisions. It also cleans the imported modules after the script finishes
     const std::string s =
-"import sys as " + privateName("sys") + "\n"
-"" + privateName("path") + " = list(" + privateName("sys") + ".path)\n"
-"" + privateName("sys") + ".path.insert(0, \"" + path + "\")\n"
-"" + privateName("loaded_modules") + " = list(" + privateName("sys") + ".modules.keys())\n"
+"import sys as " privateName("sys") "\n"
+"" privateName("path") " = list(" privateName("sys") ".path)\n"
+"" privateName("sys") ".path.insert(0, \"" + path + "\")\n"
+"" privateName("loaded_modules") " = list(" privateName("sys") ".modules.keys())\n"
 "" + script + "\n"
-"" + privateName("sys") + ".path = " + privateName("path") + "\n"
-"for m in list(" + privateName("sys") + ".modules):\n"
-"    if m not in " + privateName("loaded_modules") + ":\n"
-"        del(" + privateName("sys") + ".modules[m])\n";
+"" privateName("sys") ".path = " privateName("path") "\n"
+"for m in list(" privateName("sys") ".modules):\n"
+"    if m not in " privateName("loaded_modules") ":\n"
+"        del(" privateName("sys") ".modules[m])\n";
     return runScript(s);
 }
 
@@ -237,8 +257,8 @@ bool addToSysPath(const std::string &path)
     // Used for installing dependencies into custom
     // directory
     const std::string s =
-"import sys as " + privateName("sys") + "\n"
-"" + privateName("sys") + ".path.append(\"" + path + "\")";
+"import sys as " privateName("sys") "\n"
+"" privateName("sys") ".path.append(\"" + path + "\")";
     return runScript(s);
 }
 
