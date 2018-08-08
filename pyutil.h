@@ -57,6 +57,8 @@ bool bindShibokenModuleObject(const QString &moduleName, const QString &name);
 
 PYTHONEXTENSIONSSHARED_EXPORT bool bindPyObject(const QString &moduleName, const QString &name, void *obj);
 
+PYTHONEXTENSIONSSHARED_EXPORT bool bindSubPyObject(const QString &moduleName, const QString &name, void *obj);
+
 PYTHONEXTENSIONSSHARED_EXPORT bool runScript(const std::string &script);
 
 PYTHONEXTENSIONSSHARED_EXPORT bool runScriptWithPath(const std::string &script, const std::string &path);

@@ -105,6 +105,7 @@ WRAPPED_CLASSES = \
   bindingheaders/core_fileutils.h \
   bindingheaders/utils.h \
   bindingheaders/utils_macroexpander.h \
+  bindingheaders/utils_filename.h \
   bindingheaders/extensionsystem.h \
   bindingheaders/extensionsystem_iplugin.h
 # Sentinel line

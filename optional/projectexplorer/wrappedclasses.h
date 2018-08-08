@@ -26,7 +26,12 @@
 #ifndef WRAPPEDCLASSES_H
 #define WRAPPEDCLASSES_H
 
+#include <QAbstractSocket>
+
 #include <projectexplorer/buildconfiguration.h>
 #include <projectexplorer/projectconfiguration.h>
+#include <projectexplorer/runconfiguration.h>
+#include <projectexplorer/project.h>
+#include <projectexplorer/projecttree.h>
 
 #endif // header end

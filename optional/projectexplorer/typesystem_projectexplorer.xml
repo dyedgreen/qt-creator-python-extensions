@@ -45,13 +45,28 @@
 
     <!-- Load PySide QtWidgets typesystem (is this correct? yup) -->
     <load-typesystem name="typesystem_widgets.xml" generate="no"/>
+    <!-- Currently there are problems with getting this to work ... -->
+    <!-- <load-typesystem name="../../typesystem_qtcreator.xml" generate="no"/> -->
 
     <namespace-type name="ProjectExplorer">
         <object-type name="BuildConfiguration">
             <enum-type name="BuildType"/>
         </object-type>
         <object-type name="ProjectConfiguration"/>
-        <!-- <object-type name="IBuildConfigurationFactory"/> -->
+        <object-type name="RunConfiguration">
+            <enum-type name="ConfigurationState"/>
+        </object-type>
+        <object-type name="StatefulProjectConfiguration"/>
+        <object-type name="ProjectTree"/>
+        <object-type name="Project">
+            <enum-type name="ModelRoles"/>
+            <enum-type name="RestoreResult"/>
+        </object-type>
+    </namespace-type>
+
+    <namespace-type name="Utils">
+        <value-type name="FileName"/>
+        <modify-function signature="operator&lt;&lt;(QTextStream&amp;,Utils::FileName)" remove="all"/>
     </namespace-type>
 
 </typesystem>

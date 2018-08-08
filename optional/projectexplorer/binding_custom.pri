@@ -37,7 +37,8 @@ QT_INCLUDEPATHS += \
     -I"$$IDE_SOURCE_TREE/src/plugins/projectexplorer"
 
 INCLUDEPATH += \
-    $$IDE_SOURCE_TREE/src/plugins/projectexplorer
+    $$IDE_SOURCE_TREE/src/plugins/projectexplorer \
+    "$$IDE_SOURCE_TREE/src/libs/utils"
 
 ## These headers are needed so the generated wrappers are added to the
 ## build. Right now they are empty files, however there might be a more elegant
@@ -46,5 +47,11 @@ WRAPPED_CLASSES = \
   bindingheaders/projectexplorer.h \
   bindingheaders/projectexplorer_buildconfiguration.h \
   bindingheaders/projectexplorer_projectconfiguration.h \
-  # bindingheaders/projectexplorer_ibuildconfigurationfactory.h
+  bindingheaders/projectexplorer_statefulprojectconfiguration.h \
+  # bindingheaders/projectexplorer_ibuildconfigurationfactory.h \
+  bindingheaders/projectexplorer_runconfiguration.h \
+  bindingheaders/projectexplorer_project.h \
+  bindingheaders/projectexplorer_projecttree.h \
+  bindingheaders/utils.h \
+  bindingheaders/utils_filename.h \
 # Sentinel line

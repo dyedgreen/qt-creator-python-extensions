@@ -44,7 +44,7 @@ extern "C" void initQtCreatorBindingProjectExplorer();
 extern PyObject *SbkQtCreatorBindingProjectExplorerModuleObject;
 
 namespace PyUtil {
-    extern bool bindPyObject(const QString &moduleName, const QString &name, void *obj);
+    extern bool bindSubPyObject(const QString &moduleName, const QString &name, void *obj);
 }
 
 void bind()
@@ -59,7 +59,7 @@ void bind()
     // Bind module into interpreter
     bool pythonError = PyErr_Occurred() != nullptr;
     if (pythonInitialized && !pythonError) {
-        PyUtil::bindPyObject("__main__", "test", (void *)SbkQtCreatorBindingProjectExplorerModuleObject);
+        PyUtil::bindSubPyObject("PythonExtension.QtCreator", "ProjectExplorer", (void *)SbkQtCreatorBindingProjectExplorerModuleObject);
     } else {
         if (pythonError)
             PyErr_Print();

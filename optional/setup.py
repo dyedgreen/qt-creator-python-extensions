@@ -43,6 +43,9 @@
 # You need to specify the correct qmake when running:
 # $ python setup.py --qmake=/path/to/qmake
 # (defaults to "qmake")
+# You can also specify the amount of make jobs:
+# $ python setup.py --jobs={N}
+# (will be passed as make -j{N})
 
 import os, shutil, subprocess, sys
 

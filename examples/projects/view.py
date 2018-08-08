@@ -38,28 +38,13 @@
 ##
 #############################################################################
 
-# This one fixes things for the sanity bot
+# This contains all the display logic
 
-import os
+from PySide2 import QtWidgets
+from PythonExtension import QtCreator
 
+def error(text, title="Error"):
+    QtWidgets.QMessageBox.critical(QtCreator.Core.ICore.instance().dialogParent(), title, text)
 
-files_nl = ["cpp", "h", "py", "xml", "md", "pro", "pri", "txt", "gitignore"]
-
-def fix_nl(file):
-    f = open(file, "r")
-    body = f.read(-1)
-    f.close()
-    if len(body) > 0 and body[-1] != "\n":
-        body += "\n"
-        f = open(file, "w")
-        f.write(body)
-        f.close()
-        print("Fixed {}".format(file))
-    else:
-        print("Skipped {}".format(file))
-
-for path in os.walk("."):
-    for filename in path[2]:
-        file_type = filename.split(".")[-1]
-        if file_type in files_nl:
-            fix_nl(path[0] + "/" + filename)
+def show(text, title="Result"):
+    QtWidgets.QMessageBox.information(QtCreator.Core.ICore.instance().dialogParent(), title, text)

@@ -36,6 +36,7 @@ USE_USER_DESTDIR = yes
 ## Include Qt and QtCreator paths
 QT_INCLUDEPATHS = -I"$$[QT_INSTALL_HEADERS]" -I"$$[QT_INSTALL_HEADERS]/QtCore" \
     -I"$$[QT_INSTALL_HEADERS]/QtGui" -I"$$[QT_INSTALL_HEADERS]/QtWidgets" \
+    -I"$$[QT_INSTALL_HEADERS]/QtNetwork" \
     -I"$$IDE_SOURCE_TREE/src/plugins" \
     -I"$$IDE_SOURCE_TREE/src/libs"
 
@@ -82,9 +83,9 @@ defineReplace(getOutDir) {
 
 QMAKE_EXTRA_COMPILERS += shiboken module_wrapper_dummy_command
 
-# TODO: Fix some more of these hardcoded include paths
+# Include paths for Shiboken generated files
 INCLUDEPATH += $$WRAPPER_DIR
 
 for(i, PYSIDE2_INCLUDE) {
-    INCLUDEPATH += $$i/QtWidgets $$i/QtGui $$i/QtCore
+    INCLUDEPATH += $$i/QtWidgets $$i/QtGui $$i/QtCore $$i/QtNetwork
 }

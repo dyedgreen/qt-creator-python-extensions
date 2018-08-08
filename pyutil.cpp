@@ -201,6 +201,25 @@ bool bindPyObject(const QString &moduleName, const QString &name, void *obj)
     return true;
 }
 
+bool bindSubPyObject(const QString &moduleName, const QString &name, void *obj)
+{
+    PyObject *moduleDict = PyModule_GetDict((PyObject *)obj);
+    if (!moduleDict) {
+        if (PyErr_Occurred())
+            PyErr_Print();
+        qWarning("Could not obtain module dict");
+        return false;
+    }
+    PyObject *moduleItem = PyDict_GetItemString(moduleDict, name.toLocal8Bit().constData());
+    if (!moduleDict) {
+        if (PyErr_Occurred())
+            PyErr_Print();
+        qWarning() << "Could not obtain module item" << name;
+        return false;
+    }
+    return bindPyObject(moduleName, name, (void *)moduleItem);
+}
+
 bool runScript(const std::string &script)
 {
     if (init() == PythonUninitialized)
