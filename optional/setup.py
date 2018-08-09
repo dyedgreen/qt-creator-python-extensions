@@ -64,7 +64,17 @@ def copytree(src, dst, symlinks=False, ignore=None):
         else:
             shutil.copy2(s, d)
 
-def generateBuildDir(binding_name):
+def generate_build_deps():
+    if os.path.exists("build_deps"):
+        shutil.rmtree("build_deps")
+    # Plugin dependencies .pri file
+    os.makedirs("build_deps/pythonextensions")
+    shutil.copy2(
+        "../pythonextensions_dependencies.pri",
+        "build_deps/pythonextensions/pythonextensions_dependencies.pri"
+    )
+
+def generate_build_dir(binding_name):
     build_dir = "build_{}".format(binding_name)
     if os.path.exists(build_dir):
         shutil.rmtree(build_dir)
@@ -72,7 +82,7 @@ def generateBuildDir(binding_name):
     copytree("template", build_dir)
     copytree(binding_name, build_dir)
 
-def runBuild(binding_name):
+def run_build(binding_name):
     build_dir = "build_{}".format(binding_name)
     if os.path.exists(build_dir):
         try:
@@ -84,17 +94,18 @@ def runBuild(binding_name):
         return True
     return False
 
-def cleanBuildDirs():
+def clean_build_dirs():
     for build_dir in os.scandir():
         if build_dir.is_dir() and build_dir.name.split("_")[0] == "build":
             shutil.rmtree(build_dir.name)
             print("Removing {}".format(build_dir.name))
 
 def main():
+    generate_build_deps()
     for binding in os.scandir():
         if binding.is_dir() and binding.name != "template" and binding.name.split("_")[0] != "build":
-            generateBuildDir(binding.name)
-            if runBuild(binding.name):
+            generate_build_dir(binding.name)
+            if run_build(binding.name):
                 print("Built {}".format(binding.name))
             else:
                 print("Error building {}".format(binding.name))
@@ -102,6 +113,6 @@ def main():
 
 if __name__ == "__main__":
     if "clean" in sys.argv:
-        cleanBuildDirs()
+        clean_build_dirs()
     else:
         main()

@@ -34,3 +34,9 @@ LIBS += $$PYTHON_LFLAGS $$PYSIDE2_LFLAGS
 # Needed to fix Python dynamic linking problems
 # see pyutil.cpp
 LIBS += -ldl
+
+# Suppress non-relevant warnings from
+# Shiboken generated code
+QMAKE_CXXFLAGS += \
+    -Wno-missing-field-initializers \
+    -Wno-unused-parameter
