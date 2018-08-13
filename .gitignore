@@ -11,5 +11,6 @@ PythonExtensions.json
 # Ignore optional build directories
 optional/build_*
 
-# Ignore packaged examples
+# Ignore packaged examples and tests
 examples/*.zip
+tests/*.zip
