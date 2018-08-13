@@ -40,7 +40,7 @@ QMAKE_EXTRA_TARGETS += first copyextensions
 # This setup is currently only tested on Linux
 
 WRAPPED_HEADER = wrappedclasses.h
-WRAPPER_DIR = $$OUT_PWD/QtCreatorPython
+WRAPPER_DIR = $$OUT_PWD/PythonExtension/QtCreator
 TYPESYSTEM_FILE = typesystem_qtcreator.xml
 
 include(pyside2.pri)
@@ -61,7 +61,7 @@ QT_TOOL.shiboken.binary = $$system_path($$PYSIDE2/shiboken2)
 qtPrepareTool(SHIBOKEN, shiboken)
 
 ## Shiboken run that adds the module wrapper to GENERATED_SOURCES
-shiboken.output = $$WRAPPER_DIR/qtcreatorpython_module_wrapper.cpp
+shiboken.output = $$WRAPPER_DIR/qtcreator_module_wrapper.cpp
 shiboken.commands = $$SHIBOKEN $$SHIBOKEN_OPTIONS $$PWD/wrappedclasses.h ${QMAKE_FILE_IN}
 shiboken.input = TYPESYSTEM_FILE
 shiboken.dependency_type = TYPE_C
@@ -98,7 +98,7 @@ WRAPPED_CLASSES = \
 
 module_wrapper_dummy_command.output = $$WRAPPER_DIR/${QMAKE_FILE_BASE}_wrapper.cpp
 module_wrapper_dummy_command.commands = echo ${QMAKE_FILE_IN}
-module_wrapper_dummy_command.depends = $$WRAPPER_DIR/qtcreatorpython_module_wrapper.cpp
+module_wrapper_dummy_command.depends = $$WRAPPER_DIR/qtcreator_module_wrapper.cpp
 module_wrapper_dummy_command.input = WRAPPED_CLASSES
 module_wrapper_dummy_command.dependency_type = TYPE_C
 module_wrapper_dummy_command.variable_out = GENERATED_SOURCES

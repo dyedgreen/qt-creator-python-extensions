@@ -39,6 +39,7 @@
 #############################################################################
 
 # This one fixes things for the sanity bot
+# Usage: Run with no options from project root
 
 import os
 
@@ -58,8 +59,23 @@ def fix_nl(file):
     else:
         print("Skipped {}".format(file))
 
+files_width = ["cpp", "h"]
+max_line_widths = {"cpp": 100, "h": 100}
+
+def notice_line_width(file):
+    f = open(file, "r")
+    lines = f.read(-1).split("\n")
+    f.close()
+    for i in range(len(lines)):
+        if len(lines[i]) > max_line_widths[file_type(file)]:
+            print("Notice: Max line width exceeded in file '{0}', line {1}".format(file, i))
+
+def file_type(file):
+    return file.split(".")[-1]
+
 for path in os.walk("."):
     for filename in path[2]:
-        file_type = filename.split(".")[-1]
-        if file_type in files_nl:
+        if file_type(filename) in files_nl:
             fix_nl(path[0] + "/" + filename)
+        if file_type(filename) in files_width:
+            notice_line_width(path[0] + "/" + filename)

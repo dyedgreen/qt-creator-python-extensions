@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+/****************************************************************************
+**
+** Copyright (C) 2018 The Qt Company Ltd.
+** Contact: https://www.qt.io/licensing/
+**
+** This file is part of the Python Extensions Plugin for QtCreator.
+**
+** $QT_BEGIN_LICENSE:LGPL$
+** Commercial License Usage
+** Licensees holding valid commercial Qt licenses may use this file in
+** accordance with the commercial license agreement provided with the
+** Software or, alternatively, in accordance with the terms contained in
+** a written agreement between you and The Qt Company. For licensing terms
+** and conditions see https://www.qt.io/terms-conditions. For further
+** information use the contact form at https://www.qt.io/contact-us.
+**
+** GNU Lesser General Public License Usage
+** Alternatively, this file may be used under the terms of the GNU Lesser
+** General Public License version 3 as published by the Free Software
+** Foundation and appearing in the file LICENSE.LGPL3 included in the
+** packaging of this file. Please review the following information to
+** ensure the GNU Lesser General Public License version 3 requirements
+** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
+**
+** GNU General Public License Usage
+** Alternatively, this file may be used under the terms of the GNU
+** General Public License version 2.0 or (at your option) the GNU General
+** Public license version 3 or any later version approved by the KDE Free
+** Qt Foundation. The licenses are as published by the Free Software
+** Foundation and appearing in the file LICENSE.GPL2 and LICENSE.GPL3
+** included in the packaging of this file. Please review the following
+** information to ensure the GNU General Public License requirements will
+** be met: https://www.gnu.org/licenses/gpl-2.0.html and
+** https://www.gnu.org/licenses/gpl-3.0.html.
+**
+** $QT_END_LICENSE$
+**
+****************************************************************************/
+-->
+
+<!-- Typesystem for Qt Creator Python host plugin -->
+<typesystem package="QtCreatorBindingTextEditor">
+
+    <!-- Load PySide QtWidgets typesystem (is this correct? yup) -->
+    <load-typesystem name="typesystem_widgets.xml" generate="no"/>
+    <!-- Currently there are problems with getting this to work (see below) -->
+    <!-- <load-typesystem name="../../typesystem_qtcreator.xml" generate="no"/> -->
+    <!--
+    Here is the deal: This will compile just fine, but WON'T LOAD.
+    The reason for this is known:
+    -> The generated binding initializer will try to load the Python Module 'QtCreatorPython'
+    -> This module does not exists, because we expose everything as members of 'PythonExtension'
+    -> Now one might try to simply rename QtCreatorPython to PythonExtension.QtCreator, which would
+       generate an import statement like `Shiboken::Module::import("PythonExtension.QtCreator")`
+    -> Problem: That does not work either, because QtCreator is actually a member in PythonExtension,
+       which is a module and not a package.
+    -> So yeah, essentially it seems like this is something that would not be a problem in a module
+       for CPython, but there seems to be no facility to circumvent this when embedding CPython.
+       There is also no way in Shibken to fix this and no easy fix for that.
+    ==> The easiest way forward is to just include the parts that are needed within each binding in
+        the typesystem. Problems that might arise:
+        1) Big size of bindings due to repetition of code (pretty sure)
+        2) Interoperability issues between bindings (conjecture)
+    -->
+
+    <namespace-type name="TextEditor">
+        <enum-type name="TextPositionOperation"/>
+        <!-- <object-type name="BaseTextEditor">
+            <modify-function signature="position(TextEditor::TextPositionOperation,int)const" remove="all"/>
+        </object-type> -->
+    </namespace-type>
+
+</typesystem>

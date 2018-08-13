@@ -1,4 +1,5 @@
 # Add Qt license to all .cpp / .h
+# Usage: python license.py (run in project root directory)
 
 cpp = """/****************************************************************************
 **

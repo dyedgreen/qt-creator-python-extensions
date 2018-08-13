@@ -41,6 +41,9 @@
 # This script is just here for convenience. If you are writing
 # your own extension, manually creating a zip archive is sufficient.
 
+# Usage: $ python package.py
+# (pass argument 'clean' to remove generated package.zip files)
+
 import os, sys, shutil
 
 def package():

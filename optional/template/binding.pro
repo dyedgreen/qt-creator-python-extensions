@@ -1,5 +1,5 @@
 # NOTE: This is not yet properly tested on general systems
-#       and will (if at all) probably only work on a linux environment
+# and will (if at all) probably only work on a linux environment
 
 PYTHON = python
 DEFINES += PYTHONEXTENSIONS_LIBRARY
@@ -7,10 +7,10 @@ DEFINES += PYTHONEXTENSIONS_LIBRARY
 # PythonExtensions files
 
 SOURCES += \
-        binding.cpp
+    binding.cpp
 
 HEADERS += \
-        binding.h
+    binding.h
 
 
 # Qt Creator linking
@@ -64,16 +64,23 @@ module_wrapper_dummy_command.variable_out = GENERATED_SOURCES
 
 ## Get the path component to the active config build folder
 defineReplace(getOutDir) {
-  out_dir = $$OUT_PWD
-  CONFIG(release, debug|release): out_dir = $$out_dir/release
-  else:out_dir = $$out_dir/debug
-  return($$out_dir)
+    out_dir = $$OUT_PWD
+    CONFIG(release, debug|release): out_dir = $$out_dir/release
+    else:out_dir = $$out_dir/debug
+    return($$out_dir)
 }
 
 QMAKE_EXTRA_COMPILERS += shiboken module_wrapper_dummy_command
 
 # Include paths for Shiboken generated files
-INCLUDEPATH += $$WRAPPER_DIR
+INCLUDEPATH += $$WRAPPER_DIR \
+    $$WRAPPER_DIR/../../.. \
+    $$WRAPPER_DIR/../../../PythonExtension/QtCreator \
+    "$$IDE_SOURCE_TREE/src/plugins/coreplugin" \
+    "$$IDE_SOURCE_TREE/src/plugins/coreplugin/actionmanager" \
+    "$$IDE_SOURCE_TREE/src/plugins/coreplugin/editormanager" \
+    "$$IDE_SOURCE_TREE/src/libs/extensionsystem" \
+    "$$IDE_SOURCE_TREE/src/libs/utils"
 
 for(i, PYSIDE2_INCLUDE) {
     INCLUDEPATH += $$i/QtWidgets $$i/QtGui $$i/QtCore $$i/QtNetwork

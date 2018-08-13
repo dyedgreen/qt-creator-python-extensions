@@ -43,9 +43,13 @@
 # You need to specify the correct qmake when running:
 # $ python setup.py --qmake=/path/to/qmake
 # (defaults to "qmake")
-# You can also specify the amount of make jobs:
-# $ python setup.py --jobs={N}
-# (will be passed as make -j{N})
+
+# You can also specify a binding to build:
+# $ python setup.py --only=bindingname
+# (default is to build all)
+
+# You can clean the build directories with
+# $ python setup.py clean
 
 import os, shutil, subprocess, sys
 
@@ -54,6 +58,12 @@ def qmake():
         if arg.split("=")[0] == "--qmake":
             return arg.split("=")[-1]
     return "qmake"
+
+def only():
+    for arg in sys.argv:
+        if arg.split("=")[0] == "--only":
+            return arg.split("=")[-1]
+    return False
 
 def copytree(src, dst, symlinks=False, ignore=None):
     for item in os.listdir(src):
@@ -102,6 +112,14 @@ def clean_build_dirs():
 
 def main():
     generate_build_deps()
+    if only():
+        generate_build_dir(only())
+        if run_build(only()):
+            print("Built {}".format(only()))
+        else:
+            print("Error building {}".format(only()))
+        print("Skipping other builds")
+        return
     for binding in os.scandir():
         if binding.is_dir() and binding.name != "template" and binding.name.split("_")[0] != "build":
             generate_build_dir(binding.name)

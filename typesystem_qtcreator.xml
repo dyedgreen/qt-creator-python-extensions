@@ -41,7 +41,7 @@
 -->
 
 <!-- Typesystem for Qt Creator Python host plugin -->
-<typesystem package="QtCreatorPython">
+<typesystem package="PythonExtension.QtCreator">
 
     <!-- Load PySide QtWidgets typesystem (is this correct? yup) -->
     <load-typesystem name="typesystem_widgets.xml" generate="no"/>
