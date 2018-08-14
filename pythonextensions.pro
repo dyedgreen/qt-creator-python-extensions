@@ -1,7 +1,7 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    plugins/haskell
+    plugins/pythonextensions
 
 # Note: This does not yet include the
 #       optional bindings. They have to

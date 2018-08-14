@@ -263,7 +263,7 @@ bool pipInstallRequirements(const std::string &requirements, const std::string &
     // Run a requirements.txt file with pip
     const std::string s =
 "import subprocess, sys\n"
-"subprocess.call(\"{} -m pip install -t " + target + " -r " + requirements + "\".format(sys.executable).split())\n"
+"subprocess.check_call(\"{} -m pip install -t " + target + " -r " + requirements + "\".format(sys.executable).split())\n"
 "open(\"" + requirements + "\".replace(\"requirements.txt\",\"requirements.txt.installed\"),\"a\").close()\n";
     return runScriptWithPath(s, "");
 }
