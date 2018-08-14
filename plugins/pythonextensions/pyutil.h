@@ -37,7 +37,7 @@ namespace PyUtil {
 // Note: If modifying the bindings, check these types still align
 enum QtCreatorTypes
 {
-    PythonExtensionsPluginType = 31, // SBK_PYTHONEXTENSIONS_INTERNAL_PYTHONEXTENSIONSPLUGIN_IDX
+    PythonExtensionsPluginType = 33, // SBK_PYTHONEXTENSIONS_INTERNAL_PYTHONEXTENSIONSPLUGIN_IDX
 };
 
 enum State

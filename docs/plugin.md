@@ -145,6 +145,13 @@ MacroExpander. For this to work, there may not be an unmatched call to `PyEval_S
 in any of the bindings for these functions. To achieve this, all those functions are modified
 using a code injection in the `typesystem_qtcreator.xml`.
 
+### My build suddenly starts seg-faulting for no apparent reason
+**DON'T PANIC**, did you change the bindings? Check if the value of
+```
+SBK_PYTHONEXTENSIONS_INTERNAL_PYTHONEXTENSIONSPLUGIN_IDX
+```
+changed. (See pyutil.h and the `..._python.h` in the generated bindings.)
+
 ## Thinks that could be broken on other platforms
 
 This is _not_ an exhaustive list, _nor_ is it backed by any actual experience with

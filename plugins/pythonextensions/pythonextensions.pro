@@ -88,6 +88,7 @@ WRAPPED_CLASSES = \
   bindingheaders/core_documentmanager.h \
   bindingheaders/core_documentmodel.h \
   bindingheaders/core_fileutils.h \
+  bindingheaders/core_messagemanager.h \
   bindingheaders/utils.h \
   bindingheaders/utils_macroexpander.h \
   bindingheaders/utils_filename.h \

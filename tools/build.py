@@ -67,6 +67,9 @@ def qmake():
             return arg.split("=")[-1]
     return "qmake"
 
+def clean():
+    return "clean" in sys.argv
+
 def read_pri():
     f = open("plugins/pythonextensions/qtcreator.pri", "r")
     body = f.read(-1)
@@ -85,8 +88,7 @@ def build_plugin():
 def build_optional():
     subprocess.check_call(["python", "setup.py", "--qmake={}".format(qmake())], cwd="optional")
 
-
-if __name__ == "__main__":
+def main():
     if user():
         write_pri(read_pri().replace("# USE_USER_DESTDIR = yes", "USE_USER_DESTDIR = yes"))
     build_plugin()
@@ -94,3 +96,14 @@ if __name__ == "__main__":
         build_optional()
     if user():
         write_pri(read_pri().replace("USE_USER_DESTDIR = yes", "# USE_USER_DESTDIR = yes"))
+
+def main_clean():
+    subprocess.check_call(["make", "clean"], cwd="plugins/pythonextensions")
+    subprocess.check_call(["python", "setup.py", "clean"], cwd="optional")
+
+
+if __name__ == "__main__":
+    if clean():
+        main_clean()
+    else:
+        main()

@@ -135,6 +135,9 @@
         <!-- <object-type name="LocatorFilterEntry"/> -->
         <!-- <object-type name="LocatorManager"/> -->
         <!-- <object-type name="ModeManager"/> -->
+        <object-type name="MessageManager">
+            <enum-type name="PrintToOutputPaneFlag"/>
+        </object-type>
         <!-- <object-type name="NavigationView"/> -->
         <!-- <object-type name="NavigationWidget"/> -->
         <!-- <object-type name="NavigationWidgetPlaceHolder"/> -->

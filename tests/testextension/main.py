@@ -136,8 +136,6 @@ print(out.getvalue())
 
 # Make test output available from ui
 
-from PySide2.QtWidgets import QMessageBox
 from PythonExtension import QtCreator
 
-menu = QtCreator.Core.ActionManager.actionContainer("QtCreator.Menu.Help")
-menu.menu().addAction("Unit Test Results...", lambda: QMessageBox.information(QtCreator.Core.ICore.dialogParent(), "Python Extensions Unit Test Results", out.getvalue()))
+QtCreator.Core.MessageManager.write("Python Extensions: Unit test results:\n{}".format(out.getvalue()))

@@ -40,6 +40,7 @@
 #include <coreplugin/id.h>
 #include <coreplugin/documentmanager.h>
 #include <coreplugin/fileutils.h>
+#include <coreplugin/messagemanager.h>
 
 #include <utils/macroexpander.h>
 #include <utils/fileutils.h>
