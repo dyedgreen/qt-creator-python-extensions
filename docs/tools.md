@@ -33,3 +33,11 @@ The other scripts are in the [tools folder](../tools/), they are:
  * [Sanity helper script](../tools/sanity.py)
    - This script automatically corrects some annoying nags for the Qt Gerrit sanity check.
    - Takes no options and should be run in root directory with `$ python ./tools/sanity.py`.
+
+ * [Build helper script](../tools/build.py)
+   - This script executes all the build scripts in this project in the correct order
+   - Mainly for lazy people and only usable if everything is setup correctly
+   - **Available options are:**
+     - --qmake=/path/to/your/qmake *required*
+     - --skip *optional, only build main c++ plugin*
+     - --user *optional, build to user directory*

@@ -57,7 +57,7 @@ To build QtCreator, which is necessary for building the plugin, please refer to 
 
 ### Building the C++ plugin
 Once all dependencies are installed, you can go ahead and build the plugin itself. To do this (in
-the best case) all you will have to do is run the following commands in this projects root directory:
+the best case) all you will have to do is run the following commands in the `plugins/pythonextensions` directory:
 ```
 $ path/to/your/qmake
 $ make

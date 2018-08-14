@@ -53,6 +53,7 @@
 
 import os, shutil, subprocess, sys
 
+
 def qmake():
     for arg in sys.argv:
         if arg.split("=")[0] == "--qmake":
