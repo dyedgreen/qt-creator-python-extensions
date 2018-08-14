@@ -1,7 +1,7 @@
 # Python Extensions for QtCreator
 
-This extension for QtCreator makes it possible to extend the QtCreator by writing Python extensions.
-These extensions consist of a directory containing a `main.py` and any other Python code necessary.
+This plugin for QtCreator makes it possible to extend the QtCreator by writing Python extensions.
+These extensions consist of a directory containing a `main.py` and any other Python files necessary.
 They can be shared as zip archives, installed and managed through the included extension manager
 (which is a Python extension itself) and thus allow the QtCreator to be easily extended with
 custom functionality.
@@ -23,9 +23,9 @@ This repository contains the following:
 
 ## Installation instructions
 Note that this process has so far only be tested on Linux. The plugin itself has only been tested
-with Python 3.5 and 2.7 and QtCreator 4.7.82.
+with Python 3.5 and 2.7.12 and QtCreator 4.7.82.
 
-### Install dependencies
+### Installing dependencies
 Before you can compile and install the PythonExtensions plugin, you need to install [PySide2](https://pyside.org)
 for the version of Python you plan to use. This is necessary, as the plugin uses the system installed
 Python (or the Python installed in your virtual env, if you have one set up) and it's packages. You
@@ -49,12 +49,13 @@ code review. These patches are:
    (review in progress)
 
 Make sure your version of Shiboken has both of these patches. Otherwise, you will encounter errors
-when parsing / compiling this project.
+when parsing / compiling this project. To get these patches, you will probably need to build
+Shiboken from source.
 
 To build QtCreator, which is necessary for building the plugin, please refer to their
 [build instructions](https://doc-snapshots.qt.io/qtcreator-extending/getting-and-building.html).
 
-### Build the C++ plugin
+### Building the C++ plugin
 Once all dependencies are installed, you can go ahead and build the plugin itself. To do this (in
 the best case) all you will have to do is run the following commands in this projects root directory:
 ```
@@ -65,10 +66,16 @@ After this, the plugin should be installed into the QtCreator version you built 
 steps. If this worked, you can now go ahead and check out the `examples` folder and play with the
 provided example Python extensions.
 
-Notice that depending on your configuration, you may need to add clang to your library paths for
+Notice that depending on your configuration, you may need to add Clang to your library paths for
 Shiboken to run. Achieve this by running the following before building the plugin:
 ```
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/clang/lib
+```
+
+You may need to expose your QtCreator sources like this:
+```
+export QTC_SOURCE=/path/to/your/qt-creator
+export QTC_BUILD=/path/to/your/qt-creator
 ```
 
 **NOTICE:** This plugin generates a few debug messages and potential warnings. Any Python extension
@@ -79,7 +86,7 @@ QtCreator from your terminal by running the executable there.
 There are several things you might want to try:
 
  * Read through the build output and make sure all dependencies are set up correctly
-   - A problem I encountered here is Shiboken not finding clang. If this happens, try running:
+   - A problem I encountered here is Shiboken not finding Clang. If this happens, try running:
      ```
      $ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/your/libclang/lib
      ```
@@ -93,7 +100,7 @@ There are several things you might want to try:
    match the paths of your setup.
 
 If none of the above suggestions fix your problem, I am afraid you will have to find a solution for
-yourself. If that happens and you find a fix, please share it with me, so that it can be included in
+yourself. If that happens and you find a fix, please contact the developers, so that it can be included in
 this list (or in the build system).
 
 ## How it works

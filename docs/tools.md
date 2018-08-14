@@ -18,6 +18,7 @@ the beginning of the scripts. Some of them are scattered around the project. The
    - **Available options are:**
      - *run with no arguments in `examples` directory to create extension .zip files*
      - clean *remove generated .zip files*
+   - **Note:** There is a symbolic link to this script in the `tests` directory
 
 The other scripts are in the [tools folder](../tools/), they are:
 
@@ -29,6 +30,6 @@ The other scripts are in the [tools folder](../tools/), they are:
    - This is taken verbatim from the pyside-setup project and is used to discover the pyside
      installation / setup during builds. Should not be used manually.
 
- * [Sanity helper script](../tools/license.py)
+ * [Sanity helper script](../tools/sanity.py)
    - This script automatically corrects some annoying nags for the Qt Gerrit sanity check.
    - Takes no options and should be run in root directory with `$ python ./tools/sanity.py`.

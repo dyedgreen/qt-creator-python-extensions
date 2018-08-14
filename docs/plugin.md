@@ -1,23 +1,23 @@
-# Documentation of C++ plugin
+# C++ Plugin Documentation
 
 This document is intended for people who want to understand, maintain or
 extend the C++ part of this plugin.
+
+**NOTE:** The plugins C++ sources are located at `plugins/pythonextensions`.
 
 ## Files
 The following files exist as part of the C++ plugin:
 
  * `pyutil.[h|cpp]`
-   - Contains utilities for working with the embedded Python
+   - Contains utilities for working with the embedded Python interpreter
    - All the direct interaction with Shiboken / Python happens
      in the .cpp file to prevent a known error
-   - These files were originally based of the 'scriptableapplication'
+   - These files were originally based of the ['scriptableapplication'](http://code.qt.io/cgit/pyside/pyside-setup.git/tree/examples/scriptableapplication)
      example from the PySide project
  * `pythonextensionsplugin.[h|cpp]`
    - Contains the IPlugin class and manages the life-cycle of Python
      extensions
    - This name is the standard for QtCreator plugins
- * `pythonextensionsconstants.h`
-   - contains the extension directory name as a constant
  * `pythonextensions_global.h`
    - standard plugin file
  * `typesystem_qtcreator.xml`
@@ -48,9 +48,10 @@ tested on Linux.
    - This file is originally based of the 'scriptableapplication'
      example from the PySide project
    - It is responsible for detecting the PySide2 configuration
- * `pyside2_config.py`
+ * `tools/pyside2_config.py`
    - This script is a copy of a script found in the PySide2 examples
    - It detects the PySide2 configuration and is called by the .pri file
+   - **Note:** This script will be officially included as a PySide util in the future.
 
 ### Goals of the buildsystem
 The buildsystem aims to achieve two things

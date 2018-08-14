@@ -6,7 +6,7 @@ PythonExtension
 .qmake.stash
 Makefile
 *.log
-PythonExtensions.json
+plugins/pythonextensions/PythonExtensions.json
 
 # Ignore optional build directories
 optional/build_*

@@ -38,7 +38,7 @@ QT_INCLUDEPATHS += \
 
 INCLUDEPATH += \
     $$IDE_SOURCE_TREE/src/plugins/projectexplorer \
-    "$$IDE_SOURCE_TREE/src/libs/utils"
+    $$IDE_SOURCE_TREE/src/libs/utils
 
 ## These headers are needed so the generated wrappers are added to the
 ## build. Right now they are empty files, however there might be a more elegant

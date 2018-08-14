@@ -41,7 +41,7 @@ INCLUDEPATH += \
     $$IDE_SOURCE_TREE/src/plugins/coreplugin/editormanager \
     $$IDE_SOURCE_TREE/src/plugins/coreplugin/find \
     $$IDE_SOURCE_TREE/src/plugins/texteditor \
-    "$$IDE_SOURCE_TREE/src/libs/utils"
+    $$IDE_SOURCE_TREE/src/libs/utils
 
 ## These headers are needed so the generated wrappers are added to the
 ## build. Right now they are empty files, however there might be a more elegant

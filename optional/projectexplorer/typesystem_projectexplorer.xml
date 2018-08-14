@@ -46,7 +46,7 @@
     <!-- Load PySide QtWidgets typesystem (is this correct? yup) -->
     <load-typesystem name="typesystem_widgets.xml" generate="no"/>
     <!-- Currently there are problems with getting this to work ... -->
-    <!-- <load-typesystem name="../../typesystem_qtcreator.xml" generate="no"/> -->
+    <!-- <load-typesystem name="../../plugins/pythonextensions/typesystem_qtcreator.xml" generate="no"/> -->
 
     <namespace-type name="ProjectExplorer">
         <object-type name="BuildConfiguration">

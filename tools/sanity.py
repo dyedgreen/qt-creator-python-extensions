@@ -44,6 +44,8 @@
 import os
 
 
+total_notices = 0
+
 files_nl = ["cpp", "h", "py", "xml", "md", "pro", "pri", "txt", "gitignore"]
 
 def fix_nl(file):
@@ -66,9 +68,11 @@ def notice_line_width(file):
     f = open(file, "r")
     lines = f.read(-1).split("\n")
     f.close()
+    global total_notices
     for i in range(len(lines)):
         if len(lines[i]) > max_line_widths[file_type(file)]:
             print("Notice: Max line width exceeded in file '{0}', line {1}".format(file, i))
+            total_notices += 1
 
 def file_type(file):
     return file.split(".")[-1]
@@ -79,3 +83,6 @@ for path in os.walk("."):
             fix_nl(path[0] + "/" + filename)
         if file_type(filename) in files_width:
             notice_line_width(path[0] + "/" + filename)
+
+if total_notices > 0:
+    print("({} notices)".format(total_notices))

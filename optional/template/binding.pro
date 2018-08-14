@@ -17,7 +17,7 @@ HEADERS += \
 
 # Shared QtCreator sources and build destination
 # (these are shared with the main plugin)
-include(../../qtcreator.pri)
+include(../../plugins/pythonextensions/qtcreator.pri)
 
 ## Include Qt and QtCreator paths
 QT_INCLUDEPATHS = -I"$$[QT_INSTALL_HEADERS]" -I"$$[QT_INSTALL_HEADERS]/QtCore" \
@@ -38,7 +38,7 @@ include($$IDE_SOURCE_TREE/src/qtcreatorplugin.pri)
 
 # This setup is currently only tested on Linux
 
-include(../../pyside2.pri)
+include(../../plugins/pythonextensions/pyside2.pri)
 
 SHIBOKEN_OPTIONS = --generator-set=shiboken --enable-parent-ctor-heuristic \
     --enable-pyside-extensions --enable-return-value-heuristic --use-isnull-as-nb_nonzero \
@@ -74,8 +74,8 @@ QMAKE_EXTRA_COMPILERS += shiboken module_wrapper_dummy_command
 
 # Include paths for Shiboken generated files
 INCLUDEPATH += $$WRAPPER_DIR \
-    $$WRAPPER_DIR/../../.. \
-    $$WRAPPER_DIR/../../../PythonExtension/QtCreator \
+    $$WRAPPER_DIR/../../../plugins/pythonextensions \
+    $$WRAPPER_DIR/../../../plugins/pythonextensions/PythonExtension/QtCreator \
     "$$IDE_SOURCE_TREE/src/plugins/coreplugin" \
     "$$IDE_SOURCE_TREE/src/plugins/coreplugin/actionmanager" \
     "$$IDE_SOURCE_TREE/src/plugins/coreplugin/editormanager" \

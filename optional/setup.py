@@ -80,7 +80,7 @@ def generate_build_deps():
     # Plugin dependencies .pri file
     os.makedirs("build_deps/pythonextensions")
     shutil.copy2(
-        "../pythonextensions_dependencies.pri",
+        "../plugins/pythonextensions/pythonextensions_dependencies.pri",
         "build_deps/pythonextensions/pythonextensions_dependencies.pri"
     )
 
@@ -120,13 +120,15 @@ def main():
             print("Error building {}".format(only()))
         print("Skipping other builds")
         return
+    final_message = "Summary:"
     for binding in os.scandir():
         if binding.is_dir() and binding.name != "template" and binding.name.split("_")[0] != "build":
             generate_build_dir(binding.name)
             if run_build(binding.name):
-                print("Built {}".format(binding.name))
+                final_message += "\nBuilt {}".format(binding.name)
             else:
-                print("Error building {}".format(binding.name))
+                final_message += "\nError building {}".format(binding.name)
+    print(final_message)
 
 
 if __name__ == "__main__":
