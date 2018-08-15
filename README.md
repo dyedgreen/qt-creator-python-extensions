@@ -1,5 +1,7 @@
 # Python Extensions for QtCreator
 
+**THIS REPOSITORY HAS BEEN MOVED TO [THE OFFICIAL QT REPOSITORY](http://code.qt.io/cgit/qt-creator/plugin-pythonextensions.git/)**
+
 This plugin for QtCreator makes it possible to extend the QtCreator by writing Python extensions.
 These extensions consist of a directory containing a `main.py` and any other Python files necessary.
 They can be shared as zip archives, installed and managed through the included extension manager
